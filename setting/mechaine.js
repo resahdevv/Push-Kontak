@@ -4,6 +4,14 @@ const util = require("util");
 const chalk = require("chalk");
 const { platform } = require("process");
 
+const getGroupAdmins = (participants) => {
+  let admins = []
+  for (let i of participants) {
+      i.admin === "superadmin" ? admins.push(i.id) :  i.admin === "admin" ? admins.push(i.id) : ''
+  }
+  return admins || []
+}
+
 require("./config");
 module.exports = rezadevv = async (client, m, chatUpdate, store) => {
   try {
@@ -30,10 +38,10 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
     var prefix = /^[\\/!#.]/gi.test(body) ? body.match(/^[\\/!#.]/gi) : "/";
     const isCmd2 = body.startsWith(prefix);
     const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
+    const botNumber = await client.decodeJid(client.user.id);
     const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender);
     const args = body.trim().split(/ +/).slice(1);
     const pushname = m.pushName || "No Name";
-    const botNumber = await client.decodeJid(client.user.id);
     const itsMe = m.sender == botNumber ? true : false;
     let text = (q = args.join(" "));
     const arg = budy.trim().substring(budy.indexOf(" ") + 1);
@@ -55,7 +63,6 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
     const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : ''
     const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false
     const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
-    const isUser = signup.includes(sender)
 
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
@@ -81,12 +88,12 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
           if (!isCreator) return m.reply(mess.owner)
           if (!m.isGroup) return m.reply(mess.group)
           if (!isBotAdmins) return m.reply(mess.botAdmin)
-          if (!isAdmins) throw mess.admin
-          let mem = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
-          m.reply('*_Succes Get Member_*')
-          for (let pler of mem) {
+          if (!isAdmins) throw m.reply(mess.admin)
+          let get = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+          setTimeout (() => {m.reply('*_Success Get Member_*')}, 3000)
+          for (let wkl of get) {
             setTimeout (() => {
-              client.sendMessage(pler, { text: text})
+              client.sendMessage(wkl, { text: text})
             }, 5000) // Set Delay of 5 Second
           }
           m.reply('*_Successfull Push Kontak_*')
