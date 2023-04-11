@@ -1,3 +1,9 @@
+/**
+ * Source Code By Reza
+ * Don't Forget Smile
+ * Thank You :)
+*/
+
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@adiwajshing/baileys");
 const fs = require("fs");
 const util = require("util");
@@ -98,7 +104,7 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
               count--;
               sentCount++;
               if (count === 0) {
-                m.reply(`*_Semua pesan telah dikirim!_*:\n*_Jumlah pesan terkirim:_* *_${sentCount}_*`);
+                m.reply(`*_Semua pesan telah dikirim!:_*\n*_Jumlah pesan terkirim:_* *_${sentCount}_*`);
               }
             }, i * 1000); // delay setiap pengiriman selama 1 detik
           }

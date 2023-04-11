@@ -1,3 +1,9 @@
+/**
+ * Source Code By Reza
+ * Don't Forget Smile
+ * Thank You :)
+*/
+
 require("./setting/config")
 const {
   default: EzaConnect,
@@ -297,7 +303,7 @@ async function startEza() {
         startEza();
       }
     } else if (connection === "open") {
-      console.log(color("Bot success conneted to server", "green"));
+      console.log(color("Created By RezaDevv", "green"));
       console.log(color("Don't Forget Smile :)", "yellow"));
       console.log(color("Type .pushkontak for kontak in group"));
       client.sendMessage(owner + "@s.whatsapp.net", { text: `*── 「 DETAIL CONFIGURASI 」 ──*\n\n*_Owner:_* _${owner}_\n*_Author:_* _${author}_\n*_Session:_* _${sessionName}_\n*_Version:_* _${versionbot}_` });
