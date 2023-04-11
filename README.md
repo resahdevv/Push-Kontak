@@ -19,7 +19,7 @@ Example: ```.pushkontak save rezadevv``` Sangat cocok digunakan untuk keperluan 
 </p>
 
 ## Configuration Script 🔥
-- Ganti Apikey Open Ai Pada ```./setting/config.js```
+- Konfigurasi Owner Pada ```./setting/config.js```
 
 ```ts
 global.owner = ["6285742632270"];
