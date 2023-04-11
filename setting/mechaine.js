@@ -90,14 +90,20 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
           if (!isBotAdmins) return m.reply(mess.botAdmin)
           if (!isAdmins) throw m.reply(mess.admin)
           let get = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
-          setTimeout (() => {m.reply('*_Success Get Member_*')}, 3000)
-          for (let wkl of get) {
-            setTimeout (() => {
-              client.sendMessage(wkl, { text: text})
-            }, 5000) // Set Delay of 5 Second
+          let count = get.length;
+          let sentCount = 0;
+          for (let i = 0; i < get.length; i++) {
+            setTimeout(function() {
+              client.sendMessage(get[i], { text: text });
+              count--;
+              sentCount++;
+              if (count === 0) {
+                m.reply(`*_Semua pesan telah dikirim!_*:\n*_Jumlah pesan terkirim:_* *_${sentCount}_*`);
+              }
+            }, i * 1000); // delay setiap pengiriman selama 1 detik
           }
-          m.reply('*_Successfull Push Kontak_*')
         }
+          
         break;
         default: {
           if (isCmd2 && budy.toLowerCase() != undefined) {

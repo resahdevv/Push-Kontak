@@ -300,7 +300,7 @@ async function startEza() {
       console.log(color("Bot success conneted to server", "green"));
       console.log(color("Don't Forget Smile :)", "yellow"));
       console.log(color("Type .pushkontak for kontak in group"));
-      client.sendMessage(owner + "@s.whatsapp.net", { text: `Bot Active\n\nOwner: ${owner}\nAuthor: ${author}\nSession: ${sessionName}\nVersion: ${versionbot}` });
+      client.sendMessage(owner + "@s.whatsapp.net", { text: `*── 「 DETAIL CONFIGURASI 」 ──*\n\n*_Owner:_* _${owner}_\n*_Author:_* _${author}_\n*_Session:_* _${sessionName}_\n*_Version:_* _${versionbot}_` });
     }
     // console.log('Connected...', update)
   });
