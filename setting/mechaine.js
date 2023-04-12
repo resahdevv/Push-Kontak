@@ -98,6 +98,7 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
           let get = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
           let count = get.length;
           let sentCount = 0;
+          m.reply('*_Sedang Push Kontak..._*');
           for (let i = 0; i < get.length; i++) {
             setTimeout(function() {
               client.sendMessage(get[i], { text: text });
