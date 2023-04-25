@@ -8,8 +8,8 @@
 </p>
 
 ## Baca Dulu Mas Mba
-Hanya terdapat satu feature yakni ```.pushkontak [text]```<br>
-Example: ```.pushkontak save rezadevv``` Sangat cocok digunakan untuk keperluan JB
+Hanya terdapat dua feature yakni ```.pushkontak [text]``` & ```.pushid idgc|pesannya```<br>
+Example: ```.pushkontak save rezadevv``` | ```.pushid idgc|pesannya``` Sangat cocok digunakan untuk keperluan JB
 
 ## Catatan
 > **Warning**: Script ini open source serta gratis. Dilarang memperjual belikan!

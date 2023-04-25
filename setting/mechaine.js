@@ -110,7 +110,28 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
             }, i * 1000); // delay setiap pengiriman selama 1 detik
           }
         }
-          
+        break;
+        case "pushid" : {
+          if (!isCreator) return m.reply(mess.owner)
+          let idgc = text.split("|")[0]
+          let pesan = text.split("|")[1]
+          if (!idgc && !pesan) return m.reply(`Example: ${prefix + command} idgc|pesan`)
+          let metaDATA = await client.groupMetadata(idgc).catch((e) => {m.reply(e)})
+          let getDATA = await metaDATA.participants.filter(v => v.id.endsWith('.net')).map(v => v.id);
+          let count = getDATA.length;
+          let sentCount = 0;
+          m.reply('*_Sedang Push ID..._*')
+          for (let i = 0; i < getDATA.length; i++) {
+            setTimeout(function() {
+              client.sendMessage(getDATA[i], { text: pesan });
+              count--;
+              sentCount++;
+              if (count === 0) {
+                m.reply(`*_Semua pesan telah dikirim!_*:\n*_Jumlah pesan terkirim:_* *_${sentCount}_*`);
+              }
+            }, i * 6000);
+          }
+        } 
         break;
         default: {
           if (isCmd2 && budy.toLowerCase() != undefined) {
