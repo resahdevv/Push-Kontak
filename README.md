@@ -36,7 +36,7 @@ global.versionbot = "1.0.0";
 
 ```bash
 $ git clone https://github.com/resahdevv/Push-Kontak.git
-$ cd WhatsApp-Ai
+$ cd Push-Kontak
 $ yarn
 $ npm start
 ```
