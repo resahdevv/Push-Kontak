@@ -8,6 +8,7 @@ const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, g
 const fs = require("fs");
 const util = require("util");
 const chalk = require("chalk");
+const crypto = require("crypto")
 const { platform } = require("process");
 
 const getGroupAdmins = (participants) => {
@@ -16,6 +17,11 @@ const getGroupAdmins = (participants) => {
       i.admin === "superadmin" ? admins.push(i.id) :  i.admin === "admin" ? admins.push(i.id) : ''
   }
   return admins || []
+}
+const contacts = JSON.parse(fs.readFileSync("./data/kontak.json"))
+
+const createSerial = (size) => {
+  return crypto.randomBytes(size).toString('hex').slice(0, size)
 }
 
 require("./config");
@@ -57,6 +63,7 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
     const reply = m.reply;
     const sender = m.sender;
     const mek = chatUpdate.messages[0];
+    const isContacts = contacts.includes(sender)
 
     const color = (text, color) => {
       return !color ? chalk.green(text) : chalk.keyword(color)(text);
@@ -89,8 +96,20 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
 
     if (isCmd2) {
       switch (command) {
+        case "menu" : case "help" : {
+          const reactionMessage = {
+            react: {
+              text: "🕓", // use an empty string to remove the reaction
+              key: m.key
+            }
+          }
+          await client.sendMessage(sender, reactionMessage);
+          text = `╭──❒ *All MENU BOT*\n├• 📌 ${prefix}pushkontak [text]\n├• 📌 ${prefix}pushid [idgroup]|[text]\n├• 📌 ${prefix}savekontak [idgroup]\n├• 📌 ${prefix}getidgc\n└────────────>`
+          client.sendText(from, text, m)
+        }
+        break;
         case "pushkontak" : {
-          if (!text) return m.reply(`Example ${prefix}${command} Hi Semuanya`)
+          if (!text) return m.reply(`Example ${prefix}${command} Hello`)
           if (!isCreator) return m.reply(mess.owner)
           if (!m.isGroup) return m.reply(mess.group)
           if (!isBotAdmins) return m.reply(mess.botAdmin)
@@ -131,7 +150,49 @@ module.exports = rezadevv = async (client, m, chatUpdate, store) => {
               }
             }, i * 6000);
           }
-        } 
+        }
+        break;
+        case "savekontak" : {
+          if (!isCreator) return m.reply(mess.owner)
+          if (m.isGroup) return reply(mess.private)
+          if (!text) return reply(`Exampale: ${prefix + command} idgroup`)
+          const groupMetadataa = !m.isGroup? await client.groupMetadata(`${text}`).catch(e => {reply(e)}) : ""
+          const participants = !m.isGroup? await groupMetadataa.participants : ""
+          const getdata = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+          reply(mess.wait)
+          for (let member of getdata) {
+            if (isContacts) return
+            contacts.push(member)
+            fs.writeFileSync('./data/kontak.json', JSON.stringify(contacts))
+          } try {
+            const uniqueContacts = [...new Set(contacts)];
+            const vcardContent = uniqueContacts.map((contact) => {
+              const vcard = [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                `FN:WA[${createSerial(2)}] ${contact.split("@")[0]}`,
+                `TEL;type=CELL;type=VOICE;waid=${contact.split("@")[0]}:+${contact.split("@")[0]}`,
+                "END:VCARD",
+                "",
+              ].join("\n");
+              return vcard;
+            }).join("");
+            fs.writeFileSync("./data/kontak.vcf", vcardContent, "utf8");
+          } catch (err) {
+            reply(util.format(err))
+          } finally {
+            await client.sendMessage(from, { document: fs.readFileSync("./data/kontak.vcf"), fileName: "contacts.vcf", caption: `_*${mess.success}*_\n\n_Group:_ *_${groupMetadataa.subject}_*`, mimetype: "text/vcard", }, { quoted: m })
+            fs.writeFileSync("./data/kontak.vcf", "");
+            contacts.splice(0, contacts.length)
+            fs.writeFileSync("./data/kontak.json", JSON.stringify(contacts))
+          }
+        }
+        break;
+        case "getidgc" : {
+          if (!isCreator) return reply(mess.owner)
+          if (!m.isGroup) return reply(mess.group)
+          reply(from)
+        }
         break;
         default: {
           if (isCmd2 && budy.toLowerCase() != undefined) {

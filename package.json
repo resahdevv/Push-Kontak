@@ -1,6 +1,6 @@
 {
   "name": "Push-Kontak",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "WhatsApp Bot Push Kontak Using Lib Baileys Multi Device",
   "main": "index.js",
   "type": "commonjs",
@@ -22,7 +22,7 @@
   "author": "RezaDevv",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "npm:baileys-md@^5.0.5",
+    "@adiwajshing/baileys": "github:WhiskeySockets/Baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^10.0.0",
     "awesome-phonenumber": "^2.64.0",

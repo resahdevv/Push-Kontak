@@ -1,15 +1,23 @@
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 # Push Kontak
 
-***Push Kontak dibuat dengan nodejs menggunakan library [Bailyes](https://github.com/adiwajshing/Baileys)***
+***Push Kontak dibuat dengan nodejs menggunakan library [Bailyes](https://github.com/WhiskeySockets/Baileys)***
 
 <p align="center">
 <img width="" src="https://img.shields.io/github/repo-size/resahdevv/Push-Kontak?color=green&label=Repo%20Size&style=for-the-badge&logo=appveyor">
 </p>
 
 ## Baca Dulu Mas Mba
-Hanya terdapat dua feature yakni ```.pushkontak [text]``` & ```.pushid idgc|pesannya```<br>
-Example: ```.pushkontak save rezadevv``` | ```.pushid idgc|pesannya``` Sangat cocok digunakan untuk keperluan JB
+╭──❒ <b>All MENU BOT</b><br>
+├• 📌 #pushkontak [text]<br>
+├• 📌 #pushid [idgroup]|[text]<br>
+├• 📌 #savekontak [idgroup]<br>
+├• 📌 #getidgc<br>
+└────────────><br>
+> Untuk mendapatkan <b>idgroup</b> kirim pesan <b>#getidgc</b> pastikan anda telah masuk ke group target agar anda dapat mengirim pesan keseluruh member group. Import file yang dihasilkan dari <b>#savekontak [idgroup]</b> untuk menyimpan kontak.
+
+
+
 
 ## Catatan
 > **Warning**: Script ini open source serta gratis. Dilarang memperjual belikan!
@@ -37,7 +45,7 @@ global.versionbot = "1.0.0";
 ```bash
 $ git clone https://github.com/resahdevv/Push-Kontak.git
 $ cd Push-Kontak
-$ yarn
+$ npm install
 $ npm start
 ```
 
@@ -47,7 +55,7 @@ $ npm start
 * Kontak Pembelian [`Klik Disini`](https://wa.me/+6285742632270)
 
 ```bash
-$ yarn
+$ npm install
 $ npm start
 ```
 ## FOR TERMUX/UBUNTU/SSH USER
@@ -56,18 +64,10 @@ $ npm start
 $ apt update && apt upgrade
 $ apt install git -y
 $ apt install nodejs -y
-$ apt install ffmpeg -y
-$ git clone https://github.com/resahdevv/WhatsApp-Ai.git
-$ cd WhatsApp-Ai
-$ yarn
+$ git clone https://github.com/resahdevv/Push-Kontak.git
+$ cd Push-Kontak
+$ npm install
 $ npm start
-```
-
-## RECOMMENDED INSTALL ON TERMUX
-
-```bash
-$ pkg install yarn
-$ yarn
 ```
 
 ## Thanks To

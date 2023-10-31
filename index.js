@@ -14,6 +14,7 @@ const {
   jidDecode,
   proto,
   getContentType,
+  Browsers,
 } = require("@adiwajshing/baileys");
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
@@ -156,7 +157,7 @@ async function startEza() {
   const client = EzaConnect({
     logger: pino({ level: "silent" }),
     printQRInTerminal: true,
-    browser: ["Push-Kontak", "Chrome", "1.0.0"],
+    browser: Browsers.macOS('Desktop'),
     patchMessageBeforeSending: (message) => {
       const requiresPatch = !!(
         message.buttonsMessage
@@ -303,10 +304,11 @@ async function startEza() {
         startEza();
       }
     } else if (connection === "open") {
+      const botNumber = await client.decodeJid(client.user.id);
       console.log(color("Created By RezaDevv", "green"));
       console.log(color("Don't Forget Smile :)", "yellow"));
       console.log(color("Type .pushkontak for kontak in group"));
-      client.sendMessage(owner + "@s.whatsapp.net", { text: `*── 「 DETAIL CONFIGURASI 」 ──*\n\n*_Owner:_* _${owner}_\n*_Author:_* _${author}_\n*_Session:_* _${sessionName}_\n*_Version:_* _${versionbot}_` });
+      client.sendMessage(`${owner}@s.whatsapp.net`, { text: `*── 「 DETAIL CONFIGURASI 」 ──*\n\n*_Owner:_* _${owner}_\n*_Author:_* _${author}_\n*_Session:_* _${sessionName}_\n*_Version:_* _${versionbot}_\n\n*_${botNumber}_*` });
     }
     // console.log('Connected...', update)
   });

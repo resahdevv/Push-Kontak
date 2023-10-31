@@ -8,9 +8,11 @@ global.sessionName = "Bot-Session";
 global.versionbot = "1.0.0";
 global.mess = {
     wait: "Loading...",
+    success: "Operation Sucessfull!",
     owner: "Fitur Khusus Owner Bot",
     waitdata: "Melihat Data Terkini...",
     admin: "Fitur Khusus Admin Group!",
+    private: "Fitur Khusus Private Chat!",
     group: "Fitur Digunakan Hanya Untuk Group!",
     botAdmin: "Bot Harus Menjadi Admin Terlebih Dahulu!",
 };
